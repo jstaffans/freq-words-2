@@ -21,6 +21,6 @@
 
 (defn init []
   (secretary/set-config! :prefix "#")
-  (defroute root-path "/" [] (dispatch [:clear-group-selection]))
+  (defroute root-path "/" [] (dispatch [:select-group nil]))
   (defroute group-path "/group/:id" {id :id} (dispatch [:select-group (int id)]))
   (hook-browser-navigation!))
