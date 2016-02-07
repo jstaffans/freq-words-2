@@ -15,5 +15,5 @@
 
 (register-handler
   :start-game
-  (fn [db _]
-    (assoc-in db [:progress :words] (nth word-groups (:selected-group db)))))
+  (fn [db [_ group]]
+    (assoc-in db [:progress :words] (nth word-groups group))))

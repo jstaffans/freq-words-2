@@ -5,7 +5,9 @@
 (register-sub
   :selected-group
   (fn [db _]
-    (reaction (:selected-group @db))))
+    (reaction
+      (when-let [group (:selected-group @db)]
+        (dec group)))))
 
 (register-sub
   :current-words

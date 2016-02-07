@@ -16,7 +16,7 @@
           :key        group-index
           :tab-index  (inc group-index)
           :href       (freq-words-2.routes/group-path {:id group-index})}
-      [:div.preview (preview-words (take 3 group))]]]))
+      [:div.preview (str group-index ". " (preview-words (take 3 group)))]]]))
 
 (defn word-group-row
   [groups-in-row]
@@ -40,9 +40,9 @@
 (defn group-intro
   [group-index words]
   [:div
-   [:div.intro "Vald grupp: " (preview-words (take 3 words))]
+   [:div.intro (str "Grupp " group-index ": " (preview-words (take 3 words)))]
    [:div.controls
-    [:div.start [:i.fa.fa-play-circle {:on-click #(dispatch [:start-game])}]]
+    [:div.start [:i.fa.fa-play-circle {:on-click #(dispatch [:start-game group-index])}]]
     [:div.options
      [:div.option
       [:input {:id "random-order" :type "checkbox"}]
@@ -70,4 +70,4 @@
     (fn []
       (if-not @selected-group
         [group-selection word-groups]
-        [group @selected-group (nth word-groups (dec @selected-group))]))))
+        [group @selected-group (nth word-groups @selected-group)]))))
