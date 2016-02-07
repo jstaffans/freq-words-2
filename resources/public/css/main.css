@@ -8157,7 +8157,7 @@ div, p, span {
     .container-game .controls .start {
       font-size: 6em;
       transition: all 0.1s ease-in-out; }
-      .container-game .controls .start:hover {
+      .container-game .controls .start i:hover {
         color: green;
         cursor: pointer; }
     .container-game .controls .options {
