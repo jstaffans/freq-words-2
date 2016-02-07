@@ -2,6 +2,12 @@
 
 A new take on a small application for learning to read common Swedish words.
 
+### Install dependencies:
+
+```
+bower install
+```
+
 ### Run application:
 
 ```
