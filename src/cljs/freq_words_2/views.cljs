@@ -1,6 +1,6 @@
 (ns freq-words-2.views
   (:require-macros [freq-words-2.macros :refer [fore]])
-  (:require [re-frame.core :refer [subscribe]]
+  (:require [re-frame.core :refer [subscribe dispatch]]
             [clojure.string :as str]
             [freq-words-2.words :refer [word-groups]]))
 
@@ -37,22 +37,32 @@
                        (partition-all 3))]
       (word-group-row group-row))]])
 
+(defn group-intro
+  [group-index words]
+  [:div
+   [:div.intro "Vald grupp: " (preview-words (take 3 words))]
+   [:div.controls
+    [:div.start [:i.fa.fa-play-circle {:on-click #(dispatch [:start-game])}]]
+    [:div.options
+     [:div.option
+      [:input {:id "random-order" :type "checkbox"}]
+      [:label {:for "random-order"} "Slumpmässig ordföljd"]]
+     [:div.option
+      [:input {:id "keep-time" :type "checkbox"}]
+      [:label {:for "keep-time"} "Tidtagning"]]
+     [:div.option.option-cancel
+      [:a {:href (freq-words-2.routes/root-path)} "Tillbaka"]]]]])
+
 (defn group
   [group-index words]
-  (fn []
-    [:div {:class-name (str "container-game group-" group-index)}
-     [:div.intro "Vald grupp: " (preview-words (take 3 words))]
-     [:div.controls
-      [:div.start [:i.fa.fa-play-circle]]
-      [:div.options
-       [:div.option
-        [:input {:id "random-order" :type "checkbox"}]
-        [:label {:for "random-order"} "Slumpmässig ordföljd"]]
-       [:div.option
-        [:input {:id "keep-time" :type "checkbox"}]
-        [:label {:for "keep-time"} "Tidtagning"]]
-       [:div.option.option-cancel
-        [:a {:href (freq-words-2.routes/root-path)} "Tillbaka"]]]]]))
+  (let [current-words (subscribe [:current-words])]
+    (fn []
+      [:div {:class-name (str "container-game group-" group-index)}
+       (if-not @current-words
+         [group-intro group-index words]
+         (first @current-words))])))
+
+
 
 (defn app
   []

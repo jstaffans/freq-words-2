@@ -7,4 +7,9 @@
   (fn [db _]
     (reaction (:selected-group @db))))
 
+(register-sub
+  :current-words
+  (fn [db _]
+    (reaction (get-in @db [:progress :words]))))
+
 
