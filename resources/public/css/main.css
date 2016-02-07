@@ -8025,8 +8025,8 @@ div, p, span {
   .container-groups .word-col {
     padding: 5px; }
   .container-groups .word-group {
-    padding: 20px 15px;
-    border: 15px solid white;
+    padding: 15px 12px;
+    border: 10px solid white;
     opacity: 1;
     transition: visibility 0.4s ease, opacity 0.4s ease, background 0.3s ease;
     display: block;
@@ -8111,7 +8111,10 @@ div, p, span {
         text-decoration: none;
         cursor: pointer; }
     .container-groups .word-group .preview {
-      font-size: 1.8em; }
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 1.6em; }
 
 .container-game {
   position: absolute;

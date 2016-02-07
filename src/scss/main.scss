@@ -43,8 +43,8 @@ div, p, span {
   }
 
   .word-group {
-    padding: 20px 15px;
-    border: 15px solid white;
+    padding: 15px 12px;
+    border: 10px solid white;
     opacity: 1;
     transition: visibility 0.4s ease, opacity 0.4s ease, background 0.3s ease;
     display: block;
@@ -64,6 +64,9 @@ div, p, span {
     }
 
     .preview {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       font-size: $font-size-large;
     }
   }
