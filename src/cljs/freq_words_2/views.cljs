@@ -57,7 +57,7 @@
   [group-index words]
   (let [current-words (subscribe [:current-words])]
     (fn []
-      [:div {:class-name (str "container-game group-" group-index)}
+      [:div {:class-name (str "container-game group-" (inc group-index))}
        (if-not @current-words
          [group-intro group-index words]
          (first @current-words))])))
