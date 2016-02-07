@@ -1,0 +1,131 @@
+@import '../../bower_components/bootswatch/readable/variables';
+@import '../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap';
+@import '../../bower_components/bootswatch/readable/bootswatch';
+@import '../../bower_components/font-awesome/css/font-awesome';
+
+@import 'palette';
+@import 'variables';
+@import 'misc';
+
+div, p, span {
+  font-size: $font-size-base;
+}
+
+.container-header {
+
+  .header-title {
+    @extend h1;
+    margin: 20px 70px 20px 5px;
+  }
+
+  .header-control label {
+    font-size: $font-size-medium;
+
+    &::before {
+      margin-top: 5px;
+    }
+
+    &::after {
+      margin-top: 4px;
+      margin-left: -21px;
+
+      font-size: ($font-size-medium - 0.7em);
+    }
+  }
+}
+
+.container-groups {
+
+  margin-top: 100px;
+
+  .word-col {
+    padding: 5px;
+  }
+
+  .word-group {
+    padding: 20px 15px;
+    border: 15px solid white;
+    opacity: 1;
+    transition: visibility 0.4s ease, opacity 0.4s ease, background 0.3s ease;
+    display: block;
+    outline: none;
+    color: $text-color;
+
+    @for $i from 1 through 13 {
+      &.group-#{$i} {
+        background: palette(nth($group-colors, $i), $default-background-shade);
+
+        &:hover {
+          background: palette(nth($group-colors, $i), $select-background-shade);
+          text-decoration: none;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .preview {
+      font-size: $font-size-large;
+    }
+  }
+}
+
+.container-game {
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  @for $i from 1 through 13 {
+    &.group-#{$i} {
+      background: palette(nth($group-colors, $i), $default-background-shade);
+    }
+  }
+
+  .intro {
+    width: 100%;
+    padding-top: 40px;
+    text-align: center;
+    font-size: $font-size-huge;
+  }
+
+  .controls {
+    width: 100%;
+    margin-top: 20px;
+    text-align: center;
+
+    .start {
+      font-size: 6em;
+      transition: all 0.1s ease-in-out;
+      &:hover {
+        color: green;
+        cursor: pointer;
+      }
+    }
+
+    .options {
+      display: inline-block;
+      font-size: $font-size-medium;
+      margin-top: 20px;
+
+      .option {
+        text-align: left;
+      }
+
+      .option-cancel {
+        margin-top: 20px;
+        padding-top: 5px;
+        border-top: 1px solid $gray-light;
+        font-size: $font-size-small;
+        text-align: right;
+      }
+
+      input[type='checkbox'] {
+        margin: 0 10px 0 0;
+        transform: translateY(-2px);
+      }
+
+    }
+  }
+}
