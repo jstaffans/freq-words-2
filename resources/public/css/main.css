@@ -8005,6 +8005,21 @@ legend {
   display: flex;
   align-items: center; }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
+/* For elements not wrapped in CSSTransitionGroup */
+.fade-in-once {
+  opacity: 0;
+  animation-fill-mode: forwards;
+  animation: fadeIn ease-in 1;
+  animation-duration: 0.5s;
+  animation-delay: 1.5s;
+  animation-fill-mode: forwards; }
+
 div, p, span {
   font-size: 1em; }
 
@@ -8121,7 +8136,8 @@ div, p, span {
   top: 0;
   bottom: 0;
   left: 0;
-  right: 0; }
+  right: 0;
+  padding-top: 40px; }
   .container-game.group-1 {
     background: #E8F5E9; }
   .container-game.group-2 {
@@ -8150,19 +8166,20 @@ div, p, span {
     background: #E0F7FA; }
   .container-game .intro {
     width: 100%;
-    padding-top: 40px;
     text-align: center;
-    font-size: 2.3em; }
+    font-size: 3em; }
   .container-game .controls {
     width: 100%;
     margin-top: 20px;
     text-align: center; }
+    .container-game .controls i:hover {
+      color: green;
+      cursor: pointer; }
     .container-game .controls .start {
-      font-size: 6em;
-      transition: all 0.1s ease-in-out; }
-      .container-game .controls .start i:hover {
-        color: green;
-        cursor: pointer; }
+      font-size: 6em; }
+    .container-game .controls .continue {
+      margin-top: 100px;
+      font-size: 4em; }
     .container-game .controls .options {
       display: inline-block;
       font-size: 1.3em;
@@ -8178,3 +8195,27 @@ div, p, span {
       .container-game .controls .options input[type='checkbox'] {
         margin: 0 10px 0 0;
         transform: translateY(-2px); }
+  .container-game .word {
+    position: absolute;
+    width: 100%;
+    top: 60px;
+    text-align: center;
+    font-size: 3em; }
+  .container-game .word-appear {
+    opacity: 0.01; }
+  .container-game .word-appear.word-appear-active {
+    opacity: 1;
+    transition: opacity 0.5s ease-in;
+    transition-delay: 1.5s; }
+  .container-game .word-enter {
+    opacity: 0.01; }
+  .container-game .word-enter.word-enter-active {
+    opacity: 1;
+    transition: opacity 0.5s ease-in;
+    transition-delay: 1s; }
+  .container-game .word-leave {
+    position: absolute;
+    opacity: 1; }
+  .container-game .word-leave.word-leave-active {
+    opacity: 0.01;
+    transition: opacity 0.3s ease-in; }

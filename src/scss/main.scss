@@ -7,6 +7,18 @@
 @import 'variables';
 @import 'misc';
 
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+/* For elements not wrapped in CSSTransitionGroup */
+.fade-in-once {
+  opacity: 0;
+  animation-fill-mode: forwards;
+  animation: fadeIn ease-in 1;
+  animation-duration: 0.5s;
+  animation-delay: 1.5s;
+  animation-fill-mode: forwards;
+}
+
 div, p, span {
   font-size: $font-size-base;
 }
@@ -80,6 +92,8 @@ div, p, span {
   left: 0;
   right: 0;
 
+  padding-top: 40px;
+
   @for $i from 1 through 13 {
     &.group-#{$i} {
       background: palette(nth($group-colors, $i), $default-background-shade);
@@ -88,7 +102,6 @@ div, p, span {
 
   .intro {
     width: 100%;
-    padding-top: 40px;
     text-align: center;
     font-size: $font-size-huge;
   }
@@ -98,14 +111,18 @@ div, p, span {
     margin-top: 20px;
     text-align: center;
 
+    i:hover {
+      color: green;
+      cursor: pointer;
+    }
+
     .start {
       font-size: 6em;
-      transition: all 0.1s ease-in-out;
+    }
 
-      i:hover {
-        color: green;
-        cursor: pointer;
-      }
+    .continue {
+      margin-top: 100px;
+      font-size: 4em;
     }
 
     .options {
@@ -131,4 +148,43 @@ div, p, span {
       }
     }
   }
+
+  .word {
+    position: absolute;
+    width: 100%;
+    top: 60px;
+    text-align: center;
+    font-size: $font-size-huge;
+  }
+
+  .word-appear {
+    opacity: 0.01;
+  }
+
+  .word-appear.word-appear-active {
+    opacity: 1;
+    transition: opacity 0.5s ease-in;
+    transition-delay: 1.5s;
+  }
+
+  .word-enter {
+    opacity: 0.01;
+  }
+
+  .word-enter.word-enter-active {
+    opacity: 1;
+    transition: opacity 0.5s ease-in;
+    transition-delay: 1s;
+  }
+
+  .word-leave {
+    position: absolute;
+    opacity: 1;
+  }
+
+  .word-leave.word-leave-active {
+    opacity: 0.01;
+    transition: opacity 0.3s ease-in;
+  }
+
 }
