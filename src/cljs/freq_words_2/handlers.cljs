@@ -17,3 +17,8 @@
   :start-game
   (fn [db [_ group]]
     (assoc-in db [:progress :words] (nth word-groups group))))
+
+(register-handler
+  :continue
+  (fn [db _]
+    (update-in db [:progress :words] rest)))

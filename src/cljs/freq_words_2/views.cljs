@@ -2,7 +2,11 @@
   (:require-macros [freq-words-2.macros :refer [fore]])
   (:require [re-frame.core :refer [subscribe dispatch]]
             [clojure.string :as str]
-            [freq-words-2.words :refer [word-groups]]))
+            [freq-words-2.words :refer [word-groups]]
+            [reagent.core :as reagent]))
+
+(def css-transition-group
+  (reagent/adapt-react-class js/React.addons.CSSTransitionGroup))
 
 (defn preview-words
   [words]
@@ -53,6 +57,16 @@
      [:div.option.option-cancel
       [:a {:href (freq-words-2.routes/root-path)} "Tillbaka"]]]]])
 
+(defn single-word
+  [words]
+  (let [word (first words)]
+    [:div.controls
+     [css-transition-group {:transition-name    "word"
+                            :transition-appear  true}
+      [:div.word {:key word} word]]
+     [:div.continue.fade-in-once [:i.fa.fa-play-circle {:on-click #(dispatch [:continue])}]]]))
+
+
 (defn group
   [group-index words]
   (let [current-words (subscribe [:current-words])]
@@ -60,9 +74,7 @@
       [:div {:class-name (str "container-game group-" (inc group-index))}
        (if-not @current-words
          [group-intro group-index words]
-         (first @current-words))])))
-
-
+         [single-word @current-words])])))
 
 (defn app
   []
