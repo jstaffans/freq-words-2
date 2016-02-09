@@ -8178,7 +8178,8 @@ div, p, span {
     .container-game .controls .start {
       font-size: 6em; }
     .container-game .controls .continue {
-      margin-top: 100px;
+      margin-top: 160px;
+      margin-bottom: 40px;
       font-size: 4em; }
     .container-game .controls .options {
       display: inline-block;
@@ -8198,17 +8199,22 @@ div, p, span {
   .container-game .word {
     position: absolute;
     width: 100%;
-    top: 60px;
+    top: 70px;
     text-align: center;
-    font-size: 3em; }
+    font-size: 5em; }
+  .container-game .done {
+    width: 100%;
+    text-align: center;
+    font-size: 5em;
+    margin-bottom: 40px; }
   .container-game .word-appear {
-    opacity: 0.01; }
+    opacity: 0; }
   .container-game .word-appear.word-appear-active {
     opacity: 1;
     transition: opacity 0.5s ease-in;
     transition-delay: 1.5s; }
   .container-game .word-enter {
-    opacity: 0.01; }
+    opacity: 0; }
   .container-game .word-enter.word-enter-active {
     opacity: 1;
     transition: opacity 0.5s ease-in;
@@ -8217,5 +8223,5 @@ div, p, span {
     position: absolute;
     opacity: 1; }
   .container-game .word-leave.word-leave-active {
-    opacity: 0.01;
+    opacity: 0;
     transition: opacity 0.3s ease-in; }
