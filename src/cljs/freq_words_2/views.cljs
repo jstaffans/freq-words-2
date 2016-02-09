@@ -43,29 +43,37 @@
 
 (defn group-intro
   [group-index words]
-  [:div
-   [:div.intro (str "Grupp " group-index ": " (preview-words (take 3 words)))]
-   [:div.controls
-    [:div.start [:i.fa.fa-play-circle {:on-click #(dispatch [:start-game group-index])}]]
-    [:div.options
-     [:div.option
-      [:input {:id "random-order" :type "checkbox"}]
-      [:label {:for "random-order"} "Slumpmässig ordföljd"]]
-     [:div.option
-      [:input {:id "keep-time" :type "checkbox"}]
-      [:label {:for "keep-time"} "Tidtagning"]]
-     [:div.option.option-cancel
-      [:a {:href (freq-words-2.routes/root-path)} "Tillbaka"]]]]])
+  (let [options (subscribe [:options])]
+    (fn []
+      (.log js/console @options)
+      [:div
+       [:div.intro (str "Grupp " (inc group-index) ": " (preview-words (take 3 words)))]
+       [:div.controls
+        [:div.start [:i.fa.fa-play-circle {:on-click #(dispatch [:start-game group-index])}]]
+        [:div.options
+         [:div.option
+          [:input {:id "random-order" :type "checkbox" :checked (:random-order? @options) :on-change #(dispatch [:randomise (-> % .-target .-checked)])}]
+          [:label {:for "random-order"} "Slumpmässig ordföljd"]]
+         [:div.option
+          [:input {:id "keep-time" :type "checkbox"}]
+          [:label {:for "keep-time"} "Tidtagning"]]
+         [:div.option.option-cancel
+          [:a {:href (freq-words-2.routes/root-path)} "Tillbaka"]]]]])))
 
-(defn single-word
+(defn group-in-progress
   [words]
-  (let [word (first words)]
+  (if-let [word (first words)]
     [:div.controls
-     [css-transition-group {:transition-name    "word"
-                            :transition-appear  true}
+     [css-transition-group
+      {:transition-name   "word"
+       :transition-appear true}
       [:div.word {:key word} word]]
-     [:div.continue.fade-in-once [:i.fa.fa-play-circle {:on-click #(dispatch [:continue])}]]]))
+     [:div.continue.fade-in-once [:i.fa.fa-play-circle {:on-click #(dispatch [:continue])}]]
+     [:div [:a.fade-in-once {:href (freq-words-2.routes/root-path)} "Tillbaka"]]]
 
+    [:div.controls
+     [:div.done "Gruppen avklarad!"]
+     [:div [:a {:href (freq-words-2.routes/root-path)} "Tillbaka"]]]))
 
 (defn group
   [group-index words]
@@ -74,7 +82,7 @@
       [:div {:class-name (str "container-game group-" (inc group-index))}
        (if-not @current-words
          [group-intro group-index words]
-         [single-word @current-words])])))
+         [group-in-progress @current-words])])))
 
 (defn app
   []

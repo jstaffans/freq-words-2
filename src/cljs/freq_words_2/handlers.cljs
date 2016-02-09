@@ -14,9 +14,18 @@
     (assoc db :selected-group group :progress {})))
 
 (register-handler
+  :randomise
+  (fn [db [_ random-order?]]
+    (assoc-in db [:options :random-order?] random-order?)))
+
+(register-handler
   :start-game
   (fn [db [_ group]]
-    (assoc-in db [:progress :words] (nth word-groups group))))
+    (assoc-in db [:progress :words]
+      (let [words (nth word-groups group)]
+        (if (-> db :options :random-order?)
+          (shuffle words)
+          words)))))
 
 (register-handler
   :continue

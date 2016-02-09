@@ -4,4 +4,5 @@
 
 (def default-state
   {:selected-group nil
+   :options {:random-order? false}
    :progress {}})

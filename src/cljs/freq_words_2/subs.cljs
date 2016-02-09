@@ -10,6 +10,11 @@
         (dec group)))))
 
 (register-sub
+  :options
+  (fn [db _]
+    (reaction (:options @db))))
+
+(register-sub
   :current-words
   (fn [db _]
     (reaction (get-in @db [:progress :words]))))
