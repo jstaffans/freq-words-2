@@ -8,11 +8,11 @@
 (def css-transition-group
   (reagent/adapt-react-class js/React.addons.CSSTransitionGroup))
 
-(defn preview-words
+(defn- preview-words
   [words]
   (str (str/join ", " words) " …"))
 
-(defn word-group
+(defn- word-group
   [{:keys [group-index group]}]
   (let [class (str "word-group group-" group-index)]
     [:div.col-md-4.word-col {:key group-index}
@@ -22,14 +22,14 @@
           :href       (freq-words-2.routes/group-path {:id group-index})}
       [:div.preview (str group-index ". " (preview-words (take 3 group)))]]]))
 
-(defn word-group-row
+(defn- word-group-row
   [groups-in-row]
   [:div {:class "row" :key (-> groups-in-row first :group-index)}
    (fore [group groups-in-row]
      (word-group group))
    [:div {:style {:clear "left"}}]])
 
-(defn group-selection
+(defn- group-selection
   [word-groups]
   [:div
    [:nav.navbar.navbar-default.navbar-fixed-top
@@ -41,7 +41,11 @@
                        (partition-all 3))]
       (word-group-row group-row))]])
 
-(defn group-intro
+(defn- checked?
+  [event]
+  (-> event .-target .-checked))
+
+(defn- group-intro
   [group-index words]
   (let [options (subscribe [:options])]
     (fn []
@@ -52,15 +56,21 @@
         [:div.start [:i.fa.fa-play-circle {:on-click #(dispatch [:start-game group-index])}]]
         [:div.options
          [:div.option
-          [:input {:id "random-order" :type "checkbox" :checked (:random-order? @options) :on-change #(dispatch [:randomise (-> % .-target .-checked)])}]
+          [:input {:id        "random-order"
+                   :type      "checkbox"
+                   :checked   (:random-order? @options)
+                   :on-change #(dispatch [:update-options :random-order? (checked? %)])}]
           [:label {:for "random-order"} "Slumpmässig ordföljd"]]
          [:div.option
-          [:input {:id "keep-time" :type "checkbox"}]
+          [:input {:id        "keep-time"
+                   :type      "checkbox"
+                   :checked   (:timer? @options)
+                   :on-change #(dispatch [:update-options :timer? (checked? %)])}]
           [:label {:for "keep-time"} "Tidtagning"]]
          [:div.option.option-cancel
           [:a {:href (freq-words-2.routes/root-path)} "Tillbaka"]]]]])))
 
-(defn group-in-progress
+(defn- group-in-progress
   [words]
   (if-let [word (first words)]
     [:div.controls
@@ -75,7 +85,7 @@
      [:div.done "Gruppen avklarad!"]
      [:div [:a {:href (freq-words-2.routes/root-path)} "Tillbaka"]]]))
 
-(defn group
+(defn- group
   [group-index words]
   (let [current-words (subscribe [:current-words])]
     (fn []
@@ -83,6 +93,7 @@
        (if-not @current-words
          [group-intro group-index words]
          [group-in-progress @current-words])])))
+
 
 (defn app
   []

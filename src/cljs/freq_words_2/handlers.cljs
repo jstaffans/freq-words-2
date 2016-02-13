@@ -14,9 +14,9 @@
     (assoc db :selected-group group :progress {})))
 
 (register-handler
-  :randomise
-  (fn [db [_ random-order?]]
-    (assoc-in db [:options :random-order?] random-order?)))
+  :update-options
+  (fn [db [_ k v]]
+    (update-in db [:options] #(assoc % k v))))
 
 (register-handler
   :start-game
