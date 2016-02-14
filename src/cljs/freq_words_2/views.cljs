@@ -49,7 +49,6 @@
   [group-index words]
   (let [options (subscribe [:options])]
     (fn []
-      (.log js/console @options)
       [:div
        [:div.intro (str "Grupp " (inc group-index) ": " (preview-words (take 3 words)))]
        [:div.controls
@@ -70,20 +69,30 @@
          [:div.option.option-cancel
           [:a {:href (freq-words-2.routes/root-path)} "Tillbaka"]]]]])))
 
+(defn- show-word
+  [word]
+  [:div.controls
+   [css-transition-group
+    {:transition-name   "word"
+     :transition-appear true}
+    [:div.word {:key word} word]]
+   [:div.continue.fade-in-once [:i.fa.fa-play-circle {:on-click #(dispatch [:continue])}]]
+   [:div [:a.fade-in-once {:href (freq-words-2.routes/root-path)} "Tillbaka"]]])
+
+(defn- group-finished
+  []
+  (let [time (subscribe [:current-time])]
+    [:div.controls
+     [:div.done "Gruppen avklarad!"]
+     (when @time
+       [:div.time (str "Din tid: " (:minutes @time) " minuter " (:seconds @time) " sekunder")])
+     [:div [:a {:href (freq-words-2.routes/root-path)} "Tillbaka"]]]))
+
 (defn- group-in-progress
   [words]
   (if-let [word (first words)]
-    [:div.controls
-     [css-transition-group
-      {:transition-name   "word"
-       :transition-appear true}
-      [:div.word {:key word} word]]
-     [:div.continue.fade-in-once [:i.fa.fa-play-circle {:on-click #(dispatch [:continue])}]]
-     [:div [:a.fade-in-once {:href (freq-words-2.routes/root-path)} "Tillbaka"]]]
-
-    [:div.controls
-     [:div.done "Gruppen avklarad!"]
-     [:div [:a {:href (freq-words-2.routes/root-path)} "Tillbaka"]]]))
+    (show-word word)
+    (group-finished)))
 
 (defn- group
   [group-index words]
@@ -93,7 +102,6 @@
        (if-not @current-words
          [group-intro group-index words]
          [group-in-progress @current-words])])))
-
 
 (defn app
   []

@@ -4,7 +4,8 @@
                  [reagent "0.5.1" :exclusions [cljsjs/react]]
                  [cljsjs/react-with-addons "0.13.3-0"]
                  [re-frame "0.7.0-alpha-2"]
-                 [secretary "1.2.3"]]
+                 [secretary "1.2.3"]
+                 [com.andrewmcveigh/cljs-time "0.4.0"]]
 
   :min-lein-version "2.5.3"
 

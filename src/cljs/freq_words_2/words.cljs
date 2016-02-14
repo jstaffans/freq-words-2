@@ -2,7 +2,8 @@
 
 (def
   word-groups
-  [["att", "den", "ett", " där", "fin", "han", "hon", "jag", "kan", "men", "min", "oss", "och", "sin", "skall", "som", "till", "om"]
+  [["att", "den", "ett"]
+   #_["att", "den", "ett", " där", "fin", "han", "hon", "jag", "kan", "men", "min", "oss", "och", "sin", "skall", "som", "till", "om"]
    ["mitt", "in", "kom", "dem", "mig", "dig", "ditt", "hade", "hos", "man", "sig", "sitt", "vill", "dit", " från", "upp", "bra", "i dag"]
    ["henne", "honom", "liten", "vem", "klass", "bara", "efter", "barn", "alla", "stor", " därför", "skulle", " läsa", "rolig", "tack", " över", "finns", "flicka"]
    ["går", "fanns", " kväll", "kommer", "eller", "fick", "hemma", "vacker", "ensam", "fest", "alltid", "aldrig", " bästa", " fått", " gång", " också", "lov", "någon"]
