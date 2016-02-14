@@ -34,7 +34,7 @@
                                    :asset-path "js/compiled/out"
                                    :source-map-timestamp true}}
 
-                       {:id "min"
+                       {:id "prod"
                         :source-paths ["src/cljs"]
                         :compiler {:main freq-words-2.core
                                    :output-to "resources/public/js/compiled/app.js"
