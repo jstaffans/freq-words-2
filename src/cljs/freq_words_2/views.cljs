@@ -50,7 +50,8 @@
   (let [options (subscribe [:options])]
     (fn []
       [:div
-       [:div.intro (str "Grupp " (inc group-index) ": " (preview-words (take 3 words)))]
+       [:div.intro (str "Grupp " (inc group-index) ":")]
+       [:div.subintro (preview-words (take 3 words))]
        [:div.controls
         [:div.start [:i.fa.fa-play-circle {:on-click #(dispatch [:start-game group-index])}]]
         [:div.options
@@ -107,6 +108,8 @@
   []
   (let [selected-group (subscribe [:selected-group])]
     (fn []
-      (if-not @selected-group
-        [group-selection word-groups]
-        [group @selected-group (nth word-groups @selected-group)]))))
+      [:div
+       (if-not @selected-group
+         [group-selection word-groups]
+         [group @selected-group (nth word-groups @selected-group)])
+       [:footer.footer [:div.container "© Kjell Staffans 2016"]]])))

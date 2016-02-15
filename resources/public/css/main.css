@@ -61,7 +61,7 @@ strong {
 dfn {
   font-style: italic; }
 
-h1, .container-header .header-title {
+h1, .header-title {
   font-size: 2em;
   margin: 0.67em 0; }
 
@@ -1138,14 +1138,14 @@ hr {
 [role="button"] {
   cursor: pointer; }
 
-h1, .container-header .header-title, h2, h3, h4, h5, h6,
+h1, .header-title, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: bold;
   line-height: 1.1;
   color: inherit; }
-  h1 small, .container-header .header-title small,
-  h1 .small, .container-header .header-title .small, h2 small,
+  h1 small, .header-title small,
+  h1 .small, .header-title .small, h2 small,
   h2 .small, h3 small,
   h3 .small, h4 small,
   h4 .small, h5 small,
@@ -1162,13 +1162,13 @@ h1, .container-header .header-title, h2, h3, h4, h5, h6,
     line-height: 1;
     color: #b3b3b3; }
 
-h1, .container-header .header-title, .h1,
+h1, .header-title, .h1,
 h2, .h2,
 h3, .h3 {
   margin-top: 22px;
   margin-bottom: 11px; }
-  h1 small, .container-header .header-title small,
-  h1 .small, .container-header .header-title .small, .h1 small,
+  h1 small, .header-title small,
+  h1 .small, .header-title .small, .h1 small,
   .h1 .small,
   h2 small,
   h2 .small, .h2 small,
@@ -1194,7 +1194,7 @@ h6, .h6 {
   .h6 .small {
     font-size: 75%; }
 
-h1, .container-header .header-title, .h1 {
+h1, .header-title, .h1 {
   font-size: 41px; }
 
 h2, .h2 {
@@ -4290,7 +4290,7 @@ a.badge:hover, a.badge:focus {
   margin-bottom: 30px;
   color: inherit;
   background-color: #f7f7f7; }
-  .jumbotron h1, .jumbotron .container-header .header-title, .container-header .jumbotron .header-title,
+  .jumbotron h1, .jumbotron .header-title,
   .jumbotron .h1 {
     color: inherit; }
   .jumbotron p {
@@ -4314,7 +4314,7 @@ a.badge:hover, a.badge:focus {
       .container-fluid .jumbotron {
         padding-left: 60px;
         padding-right: 60px; }
-      .jumbotron h1, .jumbotron .container-header .header-title, .container-header .jumbotron .header-title,
+      .jumbotron h1, .jumbotron .header-title,
       .jumbotron .h1 {
         font-size: 72px; } }
 
@@ -8021,19 +8021,13 @@ legend {
   animation-fill-mode: forwards; }
 
 div, p, span {
-  font-size: 1em; }
+  font-size: 16px; }
+  @media screen and (max-width: 991px) {
+    div, p, span {
+      font-size: 20px; } }
 
-.container-header .header-title {
-  margin: 20px 70px 20px 5px; }
-
-.container-header .header-control label {
-  font-size: 1.3em; }
-  .container-header .header-control label::before {
-    margin-top: 5px; }
-  .container-header .header-control label::after {
-    margin-top: 4px;
-    margin-left: -21px;
-    font-size: 0.6em; }
+.header-title {
+  margin-bottom: 20px; }
 
 .container-groups {
   margin-top: 100px; }
@@ -8167,20 +8161,27 @@ div, p, span {
   .container-game .intro {
     width: 100%;
     text-align: center;
-    font-size: 3em; }
+    font-size: 3.2em; }
+  .container-game .subintro {
+    width: 100%;
+    text-align: center;
+    font-size: 2em; }
   .container-game .controls {
     width: 100%;
     margin-top: 20px;
     text-align: center; }
-    .container-game .controls i:hover {
-      color: green;
-      cursor: pointer; }
+    .container-game .controls i {
+      color: #318837;
+      transition: color 0.3s ease-in-out; }
+      .container-game .controls i:hover {
+        color: #389b3f;
+        cursor: pointer; }
     .container-game .controls .start {
       font-size: 6em; }
     .container-game .controls .continue {
-      margin-top: 160px;
-      margin-bottom: 40px;
-      font-size: 4em; }
+      margin-top: 220px;
+      margin-bottom: 30px;
+      font-size: 3.8em; }
     .container-game .controls .options {
       display: inline-block;
       font-size: 1.3em;
@@ -8199,13 +8200,13 @@ div, p, span {
   .container-game .word {
     position: absolute;
     width: 100%;
-    top: 70px;
+    top: 85px;
     text-align: center;
-    font-size: 5em; }
+    font-size: 5.4em; }
   .container-game .done {
     width: 100%;
     text-align: center;
-    font-size: 5em;
+    font-size: 5.4em;
     margin-bottom: 40px; }
   .container-game .time {
     width: 100%;
@@ -8230,3 +8231,8 @@ div, p, span {
   .container-game .word-leave.word-leave-active {
     opacity: 0;
     transition: opacity 0.3s ease-in; }
+
+.footer {
+  margin: 30px 0;
+  padding: 20px 0;
+  border-top: 1px solid #b3b3b3; }
