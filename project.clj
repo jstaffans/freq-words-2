@@ -12,7 +12,8 @@
   :source-paths ["src/clj" "scripts"]
 
   :plugins [[lein-cljsbuild "1.1.1"]
-            [lein-figwheel "0.5.0-6"]]
+            [lein-figwheel "0.5.0-6"]
+            [lein-scss "0.2.0"]]
 
   :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]
 
@@ -23,20 +24,29 @@
                                   [binaryage/devtools "0.5.2"]]
                    :source-paths ["src/cljs"]}}
 
+  :scss {:builds {:dev  {:source-dir "src/scss/"
+                         :dest-dir   "resources/public/css/"
+                         :executable "sassc"
+                         :args       ["-m" "-I" "src/scss" "-t" "nested"]}
+                  :prod {:source-dir "src/scss/"
+                         :dest-dir   "resources/public/css/"
+                         :executable "sassc"
+                         :args       ["-I" "src/scss" "-t" "compressed"]}}}
+
   :figwheel {:css-dirs ["resources/public/css"]}
 
-  :cljsbuild {:builds [{:id "dev"
+  :cljsbuild {:builds [{:id           "dev"
                         :source-paths ["src/cljs" "dev/cljs"]
-                        :figwheel true
-                        :compiler {:main freq-words-2.dev
-                                   :output-to "resources/public/js/compiled/app.js"
-                                   :output-dir "resources/public/js/compiled/out"
-                                   :asset-path "js/compiled/out"
-                                   :source-map-timestamp true}}
+                        :figwheel     true
+                        :compiler     {:main                 freq-words-2.dev
+                                       :output-to            "resources/public/js/compiled/app.js"
+                                       :output-dir           "resources/public/js/compiled/out"
+                                       :asset-path           "js/compiled/out"
+                                       :source-map-timestamp true}}
 
-                       {:id "prod"
+                       {:id           "prod"
                         :source-paths ["src/cljs"]
-                        :compiler {:main freq-words-2.core
-                                   :output-to "resources/public/js/compiled/app.js"
-                                   :optimizations :advanced
-                                   :pretty-print false}}]})
+                        :compiler     {:main          freq-words-2.core
+                                       :output-to     "resources/public/js/compiled/app.js"
+                                       :optimizations :advanced
+                                       :pretty-print  false}}]})
