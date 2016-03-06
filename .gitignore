@@ -9,5 +9,6 @@ pom.xml.asc
 /.nrepl-port
 /bower_components
 /*.log
+*.map
 
-/resources/public/js
+resources/public/js
